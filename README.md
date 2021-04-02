@@ -76,7 +76,7 @@ Calculate the BMI and show the Label.
 ## Deploy
 CI/CD only consist 2 stage :
 1. build docker image and then push into gitlab container registry 
-2. deploy using docker-compose into server using Gitlab-CI Runner DIND Image
+2. deploy using docker-compose into server using Gitlab-CI Runner Shell Executor
 
 
 ## License
