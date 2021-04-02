@@ -13,13 +13,23 @@ This repository is an API for BMI Calculation using Laravel Lumen Micro-Framewor
 
 ### Using Container
 1. Docker installed
-2. Minikube ( optional )
+2. docker-compose installed
 
-## Installation using Native PHP
+## Installation
+
+### Development Environment using Native PHP
 1. Clone this repo
 2. `cd` to this repo and then run `composer install`
 3. copy .env.example to .env
 4. run `php -S localhost:80 -t public`
+5. api now accessible locally for development environment
+
+### Development Environment using Container
+1. Clone this repo
+2. `cd` to this repo and copy .env.example file into .env file and edit the configuration
+3. in root directory, run `docker-compose up -d`
+4. for the first installation, execute `docker-compose exec bmi-calculation-api composer install` to install the vendor & library
+5. api now accessible locally for development environment
 
 ## Usage
 Calculate the BMI and show the Label.
@@ -50,6 +60,16 @@ Calculate the BMI and show the Label.
   {
     "height": ["The input must be a number."]
     "weight": ["The weight field is required."]
+  }
+  ```
+* **Example**
+  `curl 'http://localhost/?height=167&weight=70'`
+  **Response**
+  ```
+  HTTP/1.1 200 OK
+  {
+    "bmi":25.1,
+    "label":"overweight"
   }
   ```
   
