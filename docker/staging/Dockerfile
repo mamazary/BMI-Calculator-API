@@ -1,10 +1,10 @@
+# Build from mamazary docker image for PHP & apache2
+FROM mamazary/php-bundle:7.4
+
 # Add new relic configuration
 ARG NEW_RELIC_AGENT_VERSION=$NEW_RELIC_AGENT_VERSION
 ARG NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY
 ARG NEW_RELIC_APPNAME=$NEW_RELIC_APPNAME
-
-# Build from mamazary docker image for PHP & apache2
-FROM mamazary/php-bundle:7.4
 
 # Set the environment variable
 ENV APACHE_DOCUMENT_ROOT /var/www/html
