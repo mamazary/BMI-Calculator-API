@@ -4,7 +4,7 @@ networks:
   newrelic-php:
     driver: bridge
 
-    services:
+services:
   bmi-calculation-api:
     image: registry.gitlab.com/mamazary/bmi-calculation-api
     ports:
@@ -13,6 +13,9 @@ networks:
       - docker-compose.env
     environment:
       - SENTRY_DSN=$CI_SENTRY_DSN
+      - NEW_RELIC_AGENT_VERSION=$NEW_RELIC_AGENT_VERSION
+      - NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY
+      - NEW_RELIC_APPNAME=$NEW_RELIC_APPNAME
     restart: always
     networks:
       - newrelic-php
