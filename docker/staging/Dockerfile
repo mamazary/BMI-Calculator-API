@@ -30,3 +30,6 @@ COPY . /var/www/html/.
 
 # Install vendor / update if any
 RUN composer update
+
+# Give the apache user & group permission to the source code
+RUN chown www-data:www-data * -R
