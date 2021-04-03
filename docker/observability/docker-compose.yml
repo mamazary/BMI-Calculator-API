@@ -2,7 +2,7 @@ version: '3.3'
 
 networks:
   newrelic-php:
-    driver: overlay
+    driver: bridge
 
 services:
   newrelic-php-daemon:
