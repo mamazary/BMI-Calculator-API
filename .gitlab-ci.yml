@@ -8,7 +8,11 @@ stages:
 build-image:
   stage: build
   script:
-    - docker build -t registry.gitlab.com/mamazary/bmi-calculation-api -f docker/staging/Dockerfile .
+    - docker build -t registry.gitlab.com/mamazary/bmi-calculation-api \
+        -f docker/staging/Dockerfile \
+        --build-arg NEW_RELIC_AGENT_VERSION=$NEW_RELIC_AGENT_VERSION \
+        --build-arg NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY \
+        --build-arg NEW_RELIC_APPNAME=$NEW_RELIC_APPNAME .
     - docker push registry.gitlab.com/mamazary/bmi-calculation-api
   only:
     - staging
