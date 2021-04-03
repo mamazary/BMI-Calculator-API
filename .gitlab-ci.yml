@@ -27,3 +27,21 @@ deploy-staging:
     - staging
   tags:
     - bmi
+
+deploy-logging-staging:
+  stage: deploy
+  script:
+    - docker-compose -f docker/logging/docker-compose.yml up -d
+  only:
+    - logging-staging
+  tags:
+    - bmi
+
+deploy-observability-staging:
+  stage: deploy
+  script:
+    - docker-compose -f docker/observability/docker-compose.yml up -d
+  only:
+    - observability-staging
+  tags:
+    - bmi

@@ -1,6 +1,10 @@
 version: '3.3'
 
-services:
+networks:
+  newrelic-php:
+    driver: bridge
+
+    services:
   bmi-calculation-api:
     image: registry.gitlab.com/mamazary/bmi-calculation-api
     ports:
@@ -10,3 +14,21 @@ services:
     environment:
       - SENTRY_DSN=$CI_SENTRY_DSN
     restart: always
+    networks:
+      - newrelic-php
+
+  papertrail-logging:
+    image: gliderlabs/logspout
+    environment:
+      - SYSLOG_HOSTNAME={{.ContainerName}}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - syslog+tls://$PT_LOGN.papertrailapp.com:$PT_PORT
+    restart: always
+
+  newrelic-php-daemon:
+    image: newrelic/php-daemon
+    restart: always
+    networks:
+      - newrelic-php
