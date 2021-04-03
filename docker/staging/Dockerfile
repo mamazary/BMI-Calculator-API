@@ -2,9 +2,9 @@
 FROM mamazary/php-bundle:7.4
 
 # Add new relic configuration
-ARG NEW_RELIC_AGENT_VERSION=$NEW_RELIC_AGENT_VERSION
-ARG NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY
-ARG NEW_RELIC_APPNAME=$NEW_RELIC_APPNAME
+ARG NEW_RELIC_AGENT_VERSION
+ARG NEW_RELIC_LICENSE_KEY
+ARG NEW_RELIC_APPNAME
 
 # Set the environment variable
 ENV APACHE_DOCUMENT_ROOT /var/www/html
@@ -22,7 +22,7 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 # Install new relic agent
-RUN curl -L https://download.newrelic.com/php_agent/archive/${NEW_RELIC_AGENT_VERSION}/newrelic-php5-${NEW_RELIC_AGENT_VERSION}-linux.tar.gz | tar -C /tmp -zx \
+RUN curl -L https://download.newrelic.com/php_agent/release/newrelic-php5-${NEW_RELIC_AGENT_VERSION}-linux.tar.gz | tar -C /tmp -zx \
     && export NR_INSTALL_USE_CP_NOT_LN=1 \
     && export NR_INSTALL_SILENT=1 \
     && /tmp/newrelic-php5-${NEW_RELIC_AGENT_VERSION}-linux/newrelic-install install \
