@@ -7,4 +7,6 @@ services:
       - '8889:80'
     env_file:
       - docker-compose.env
+    environment:
+      - SENTRY_DSN=$CI_SENTRY_DSN
     restart: always
