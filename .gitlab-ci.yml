@@ -27,3 +27,15 @@ deploy-staging:
     - staging
   tags:
     - bmi
+
+deploy-logging-staging:
+  stage: deploy
+  script:
+    - docker run --restart=always -d \
+     -v=/var/run/docker.sock:/var/run/docker.sock  \
+     -e SYSLOG_HOSTNAME={{.ContainerName}} gliderlabs/logspout \
+     syslog+tls://$PT_LOGN.papertrailapp.com:$PT_PORT
+  only:
+    - logging-staging
+  tags:
+    - bmi
