@@ -74,10 +74,30 @@ Calculate the BMI and show the Label.
   ```
 
 ## Deploy
+
+### Stack
+The stack that used in this image are :
+- PHP+apache
+- Laravel Lumen
+- PaperTrail Centralize Logging
+- NewRelic
+- Sentry Error Tracking ( Also Integrated with Gitlab )
+
+### Deploy Stage
 CI/CD only consist 2 stage :
 1. build docker image and then push into gitlab container registry 
 2. deploy using docker-compose into server using Gitlab-CI Runner Shell Executor
 
+### Deployed Container
+The deployed container would be 3 container, which is :
+- BMI-API Container
+- PaperTrail Logging
+- Newrelic-Daemon
+
+## Current Live API
+This API was deployed on this server below
+`https://bmi.aripratama.com`
+The container sit behind NGINX reverse proxy
 
 ## License
 
