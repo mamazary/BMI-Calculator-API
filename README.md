@@ -1,24 +1,84 @@
-# Lumen PHP Framework
+# BMI Calculation API
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+This repository is an API for BMI Calculation using Laravel Lumen Micro-Framework. This project didn't require any database connection.
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+## Prequisite
 
-## Official Documentation
+### Using Native PHP
+1. PHP >= 7.3
+2. OpenSSL PHP Extension
+3. PDO PHP Extension
+4. Mbstring PHP Extension
+5. Composer installed
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+### Using Container
+1. Docker installed
+2. docker-compose installed
 
-## Contributing
+## Installation
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Development Environment using Native PHP
+1. Clone this repo
+2. `cd` to this repo and then run `composer install`
+3. copy .env.example to .env
+4. run `php -S localhost:80 -t public`
+5. api now accessible locally for development environment
 
-## Security Vulnerabilities
+### Development Environment using Container
+1. Clone this repo
+2. `cd` to this repo and copy .env.example file into .env file and edit the configuration
+3. in root directory, run `docker-compose up -d`
+4. for the first installation, execute `docker-compose exec bmi-calculation-api composer install` to install the vendor & library
+5. api now accessible locally for development environment
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+## Usage
+Calculate the BMI and show the Label.
+* **URL**
+    `/`
+
+* **Method**
+    `GET`
+
+* **URL Params**
+    | Field | Type | Description |
+    | ------ | ------ | ------ | 
+    | weight | Numeric | Weight input in kg |
+    | height | Numeric | Height input in cm |
+
+* **Success Response**
+  ```
+  HTTP/1.1 200 OK
+  {
+    "bmi":20.6,
+    "label":"normal"
+  }
+  ```
+  
+* **Error Response**
+  ```
+  HTTP/1.1 422 Unprocessable Entity
+  {
+    "height": ["The input must be a number."]
+    "weight": ["The weight field is required."]
+  }
+  ```
+* **Example**
+  `curl 'http://localhost/?height=167&weight=70'`
+  **Response**
+  ```
+  HTTP/1.1 200 OK
+  {
+    "bmi":25.1,
+    "label":"overweight"
+  }
+  ```
+
+## Deploy
+CI/CD only consist 2 stage :
+1. build docker image and then push into gitlab container registry 
+2. deploy using docker-compose into server using Gitlab-CI Runner Shell Executor
+
 
 ## License
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This work is under [MIT license](https://opensource.org/licenses/MIT).

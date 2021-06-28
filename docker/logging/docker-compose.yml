@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  papertrail-logging:
+    image: gliderlabs/logspout
+    environment:
+      - SYSLOG_HOSTNAME={{.ContainerName}}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - syslog+tls://$PT_LOGN.papertrailapp.com:$PT_PORT
+    restart: always

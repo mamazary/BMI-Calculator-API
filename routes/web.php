@@ -13,6 +13,7 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->get('/','BmiController@index');
+$router->get('/debug-sentry', function () {
+    throw new Exception('Test Error Tracking');
 });

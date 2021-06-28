@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  bmi-calculation-api:
+    build:
+      context: docker/development/.
+    image: registry.gitlab.com/mamazary/bmi-calculation-api
+    ports:
+      - '80:80'
+    volumes:
+      - .:/var/www/html/
+    env_file:
+      - docker/development/docker-compose.env
+    restart: always

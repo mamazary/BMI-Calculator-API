@@ -1,0 +1,12 @@
+version: '3.3'
+
+networks:
+  newrelic-php:
+    driver: overlay
+
+services:
+  newrelic-php-daemon:
+    image: newrelic/php-daemon
+    restart: always
+    networks:
+      - newrelic-php
